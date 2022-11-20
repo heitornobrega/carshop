@@ -33,20 +33,21 @@ export default class CarService {
   public async getCar(_id: string) {
     const carODM = new CarODM();
     const cars: ICar[] = await carODM.getCar(_id);
-    if (cars.length === 0) {
+    try {
+      const car = cars[0];
+      const carObj = {
+        id: car._id,
+        color: car.color,
+        buyValue: car.buyValue,
+        doorsQty: car.doorsQty,
+        model: car.model,
+        seatsQty: car.seatsQty,
+        status: car.status,
+        year: car.year,
+      };
+      return carObj;
+    } catch (error) {
       throw new Error('Car not found');
     }
-    const car = cars[0];
-    const carObj = {
-      id: car._id,
-      color: car.color,
-      buyValue: car.buyValue,
-      doorsQty: car.doorsQty,
-      model: car.model,
-      seatsQty: car.seatsQty,
-      status: car.status,
-      year: car.year,
-    };
-    return carObj;
   }
 }
