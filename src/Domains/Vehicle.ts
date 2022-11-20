@@ -1,7 +1,7 @@
 import ICar from '../Interfaces/ICar';
 
 export default class Vehicle {
-  protected _id: string | undefined;
+  protected id: string | undefined;
   protected model: string;
   protected year: number;
   protected color: string;
@@ -11,7 +11,7 @@ export default class Vehicle {
   private seatsQty: number;
 
   constructor(obj: ICar) {
-    this._id = obj._id;
+    this.id = obj._id;
     this.model = obj.model;
     this.year = obj.year;
     this.color = obj.color;
@@ -22,11 +22,11 @@ export default class Vehicle {
   }
 
   public setId(id: string) {
-    this._id = id;
+    this.id = id;
   }
 
   public getId() {
-    return this._id;
+    return this.id;
   }
 
   public setModel(model:string) {
