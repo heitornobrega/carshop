@@ -1,4 +1,4 @@
-import { Model, Schema, model, models, isValidObjectId } from 'mongoose';
+import { Model, Schema, model, models, isValidObjectId, UpdateQuery } from 'mongoose';
 
 import ICar from '../Interfaces/ICar';
 
@@ -35,5 +35,17 @@ export default class CarODM {
 
   public async getAllCars(): Promise<ICar[]> {
     return this.model.find();
+  }
+
+  public async updateCar(_id: string, info: ICar): Promise<any> {
+    const idIsvalid = isValidObjectId(_id);
+    if (!idIsvalid) {
+      throw new Error('Invalid mongo id');
+    }
+    return [await this.model.findByIdAndUpdate(
+      { _id },
+      { ...info } as UpdateQuery<ICar>,
+      { new: true },
+    )];
   }
 }

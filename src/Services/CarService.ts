@@ -50,4 +50,25 @@ export default class CarService {
       throw new Error('Car not found');
     }
   }
+  public async updateCar(_id: string, info: ICar) {
+    const carODM = new CarODM();
+    const cars = await carODM.updateCar(_id, info);
+    console.log(cars);
+    try {
+      const car = cars[0];
+      const carObj = {
+        id: car._id,
+        color: car.color,
+        buyValue: car.buyValue,
+        doorsQty: car.doorsQty,
+        model: car.model,
+        seatsQty: car.seatsQty,
+        status: car.status,
+        year: car.year,
+      };
+      return carObj;
+    } catch (error) {
+      throw new Error('Car not found');
+    }
+  }
 }
