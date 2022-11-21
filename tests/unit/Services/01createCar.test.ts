@@ -6,6 +6,9 @@ import CarService from '../../../src/Services/CarService';
 import Car from '../../../src/Domains/Car';
 
 describe('Test of create cars', function () {
+  afterEach(function () {
+    sinon.restore();
+  });
   it('Should return a object with a car', async function () {
     // Arrange
     const createCarInput: Icar = {
