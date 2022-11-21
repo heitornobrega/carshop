@@ -16,7 +16,7 @@ export default class CarService {
 
   public async getAllCars() {
     const carODM = new CarODM();
-    const cars = await carODM.getAllCars();
+    const cars = await carODM.getAll();
     const caras = cars.map((el) => ({ 
       id: el._id,
       color: el.color,
@@ -32,7 +32,7 @@ export default class CarService {
 
   public async getCar(_id: string) {
     const carODM = new CarODM();
-    const cars: ICar[] = await carODM.getCar(_id);
+    const cars = await carODM.getOne(_id) as ICar[];
     try {
       const car = cars[0];
       const carObj = {
@@ -52,8 +52,7 @@ export default class CarService {
   }
   public async updateCar(_id: string, info: ICar) {
     const carODM = new CarODM();
-    const cars = await carODM.updateCar(_id, info);
-    console.log(cars);
+    const cars = await carODM.update(_id, info);
     try {
       const car = cars[0];
       const carObj = {
