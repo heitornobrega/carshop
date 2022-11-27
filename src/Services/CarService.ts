@@ -53,6 +53,7 @@ export default class CarService {
   public async updateCar(_id: string, info: ICar) {
     const carODM = new CarODM();
     const cars = await carODM.update(_id, info);
+    console.log('carService', cars);
     try {
       const car = cars[0];
       const carObj = {

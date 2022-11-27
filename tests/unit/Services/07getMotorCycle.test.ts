@@ -1,17 +1,17 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { Model } from 'mongoose';
-import CarService from '../../../src/Services/CarService';
-// import { carArrayExpected, validCarOutput } from './carMocks';
-// import ICar from '../../../src/Interfaces/ICar';
+import MotorcycleService from '../../../src/Services/MotorcycleService';
+// import { carArrayExpected, validMotorcycleOutput } from './carMocks';
+// import IMotorcycle from '../../../src/Interfaces/IMotorcycle';
 
-describe('getCar test', function () {
+describe('getMotorcycle test', function () {
   it('Should throw an exception when id type is invalid', async function () {
     const INVALID_ID = 'INVALID';
     sinon.stub(Model, 'find').resolves(undefined);
     try {
-      const service = new CarService();
-      await service.getCar(INVALID_ID);
+      const service = new MotorcycleService();
+      await service.getMotorcycle(INVALID_ID);
     } catch (error) {
       expect((error as Error).message).to.be.equal('Invalid mongo id');
       sinon.restore();
@@ -22,10 +22,10 @@ describe('getCar test', function () {
     const VALID_ID = '637a6739bf90607d859ec235';
     sinon.stub(Model, 'find').resolves([]);
     try {
-      const service = new CarService();
-      await service.getCar(VALID_ID);
+      const service = new MotorcycleService();
+      await service.getMotorcycle(VALID_ID);
     } catch (error) {
-      expect((error as Error).message).to.be.equal('Car not found');
+      expect((error as Error).message).to.be.equal('Motorcycle not found');
       sinon.restore();
     }
   });
@@ -37,20 +37,20 @@ describe('getCar test', function () {
       year: 1960,
       color: 'Red',
       buyValue: 1500,
-      doorsQty: 2,
-      seatsQty: 2,
+      engineCapacity: 1200,
+      category: 'Street',
       status: false,
       _id: '637a6739bf90607d859ec235',
     }]);
-    const service = new CarService();
-    const result = await service.getCar(VALID_ID);
+    const service = new MotorcycleService();
+    const result = await service.getMotorcycle(VALID_ID);
     expect(result).to.be.deep.equal({
       model: 'Uno da Escada',
       year: 1960,
       color: 'Red',
       buyValue: 1500,
-      doorsQty: 2,
-      seatsQty: 2,
+      engineCapacity: 1200,
+      category: 'Street',
       status: false,
       id: '637a6739bf90607d859ec235',
     });
